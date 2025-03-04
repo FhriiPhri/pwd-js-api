@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const API_URL = "http://192.168.238.81:8000";
+const API_URL = 'http://192.168.229.81:8000/api';
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -16,7 +16,7 @@ export default function Home() {
   }, []);
 
   async function fetchUsers() {
-    const res = await fetch(`${API_URL}/api/users`);
+    const res = await fetch(`${API_URL}/users`);
     const data = await res.json();
     setUsers(data.data || []);
     setFilteredUsers(data.data || []);
@@ -24,7 +24,7 @@ export default function Home() {
 
   async function handleAddUser(e) {
     e.preventDefault();
-    const res = await fetch(`${API_URL}/api/users/register`, {
+    const res = await fetch(`${API_URL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,6 +37,8 @@ export default function Home() {
       return;
     }
   
+    alert("User berhasil ditambahkan");
+    
     await fetchUsers();
   
     setName("");
@@ -51,7 +53,7 @@ export default function Home() {
       return;
     }
   
-    const res = await fetch(`${API_URL}/api/users/${id}`, {
+    const res = await fetch(`${API_URL}/users/${id}`, {
       method: "DELETE"
     });
   
